@@ -52,6 +52,7 @@ public class InspectionManager : MonoBehaviour
         _currentItem = item;
         _currentZoom = 1f;
         inspectionAnchor.localScale = Vector3.one;
+        inspectionAnchor.rotation = Quaternion.identity;
 
         _inspectionCopy = SpawnCopy(item);
 
@@ -90,6 +91,7 @@ public class InspectionManager : MonoBehaviour
         inspectionUI.Hide();
         _currentItem = null;
         inspectionAnchor.localScale = Vector3.one;
+        inspectionAnchor.rotation = Quaternion.identity;
     }
 
     /// <summary>
@@ -101,7 +103,7 @@ public class InspectionManager : MonoBehaviour
 
         var rotY = Quaternion.AngleAxis(-delta.x * rotationSensitivity, Vector3.up);
         var rotX = Quaternion.AngleAxis(-delta.y * rotationSensitivity, Vector3.right);
-        _inspectionCopy.transform.rotation = rotY * rotX * _inspectionCopy.transform.rotation;
+        inspectionAnchor.rotation = rotY * rotX * inspectionAnchor.rotation;
     }
 
     /// <summary>
@@ -150,10 +152,41 @@ public class InspectionManager : MonoBehaviour
                 Destroy(action);
         }
 
+        // Strip visual indicators — outline and floating icon
+        var outline = copy.GetComponent<Outline>();
+        if (outline != null)
+        {
+            outline.enabled = false; // triggers OnDisable → strips materials immediately
+            Destroy(outline);
+        }
+
+        var icon = copy.GetComponent<InteractableIcon>();
+        if (icon != null) Destroy(icon);
+
+        var iconPivot = copy.transform.Find("_InteractableIcon");
+        if (iconPivot != null) Destroy(iconPivot.gameObject);
+
         SetLayerRecursive(copy, LayerMask.NameToLayer("InspectionLayer"));
         copy.transform.localScale = item.Data.inspectionScale;
 
+        // Offset copy so its geometric center aligns with the anchor,
+        // so rotation always spins around the visual centre of the mesh.
+        CenterOnAnchor(copy);
+
         return copy;
+    }
+
+    private void CenterOnAnchor(GameObject copy)
+    {
+        var renderers = copy.GetComponentsInChildren<Renderer>();
+        if (renderers.Length == 0) return;
+
+        var bounds = renderers[0].bounds;
+        foreach (var r in renderers)
+            bounds.Encapsulate(r.bounds);
+
+        // Shift the copy so its bounds centre sits at the anchor position
+        copy.transform.position += inspectionAnchor.position - bounds.center;
     }
 
     private void ConvertSpriteToQuad(GameObject copy, SpriteRenderer sr)
