@@ -27,7 +27,10 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         if (dialogueRunner != null)
+        {
             dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
+            dialogueRunner.onDialogueStart.AddListener(() => Debug.Log($"[Dialogue] started, presenters: {string.Join(", ", dialogueRunner.DialoguePresenters)}"));
+        }
     }
 
     void OnDestroy()
@@ -39,7 +42,9 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(string nodeName)
     {
         if (IsDialogueActive) return;
-        if (dialogueRunner == null) return;
+        if (dialogueRunner == null) { Debug.LogWarning("[Dialogue] dialogueRunner is null"); return; }
+
+        Debug.Log($"[Dialogue] calling StartDialogue({nodeName}), project={dialogueRunner.YarnProject?.name ?? "NULL"}");
 
         if (InteractionManager.Instance != null) InteractionManager.Instance.enabled = false;
         if (navigationUI != null) navigationUI.enabled = false;
@@ -49,6 +54,7 @@ public class DialogueManager : MonoBehaviour
 
     private void OnDialogueComplete()
     {
+        Debug.Log("[Dialogue] complete");
         if (InteractionManager.Instance != null) InteractionManager.Instance.enabled = true;
         if (navigationUI != null) navigationUI.enabled = true;
     }
