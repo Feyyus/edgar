@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "edgar-git.slnx"
+    "dotnet.defaultSolution": "edgar.slnx"
 }
