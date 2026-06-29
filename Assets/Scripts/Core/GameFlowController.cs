@@ -1,7 +1,7 @@
 using UnityEngine;
 using Edgar.Input;
-using Edgar.Items.Core;
-using Edgar.Items.Input;
+using Edgar.Inspection.Core;
+using Edgar.Inspection.Input;
 using Edgar.UI;
 
 namespace Edgar.Core

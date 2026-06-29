@@ -1,6 +1,6 @@
 using UnityEngine;
 using Edgar.Dossier.Core;
-using Edgar.Items.Core;
+using Edgar.Inspection.Core;
 
 namespace Edgar.Dossier.Triggers
 {

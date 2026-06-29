@@ -1,9 +1,8 @@
 using System;
 using UnityEngine;
 using Edgar.Core;
-using Edgar.Items.Core;
 
-namespace Edgar.Items.Core
+namespace Edgar.Inspection.Core
 {
     public class InspectableObject : MonoBehaviour, IInteractable
     {

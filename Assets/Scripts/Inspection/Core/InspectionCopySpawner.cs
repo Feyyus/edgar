@@ -2,7 +2,7 @@ using UnityEngine;
 using Edgar.Characters.Core;
 using Edgar.UI;
 
-namespace Edgar.Items.Core
+namespace Edgar.Inspection.Core
 {
     public class InspectionCopySpawner : MonoBehaviour
     {

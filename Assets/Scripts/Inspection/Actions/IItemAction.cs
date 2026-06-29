@@ -1,6 +1,6 @@
-using Edgar.Items.Core;
+using Edgar.Inspection.Core;
 
-namespace Edgar.Items.Actions
+namespace Edgar.Inspection.Actions
 {
     public interface IItemAction
     {

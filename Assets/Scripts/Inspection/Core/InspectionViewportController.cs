@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Edgar.Items.Core
+namespace Edgar.Inspection.Core
 {
     public class InspectionViewportController : MonoBehaviour
     {

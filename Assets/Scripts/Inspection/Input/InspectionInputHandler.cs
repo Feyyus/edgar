@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
-using Edgar.Items.Core;
+using Edgar.Inspection.Core;
 
-namespace Edgar.Items.Input
+namespace Edgar.Inspection.Input
 {
     /// <summary>
     /// Handles all input while inspection mode is active.

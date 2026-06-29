@@ -1,12 +1,12 @@
 using UnityEngine;
 using Edgar.Dossier.Core;
 using Edgar.Input;
-using Edgar.Items.Input;
+using Edgar.Inspection.Input;
 using Edgar.UI;
 using Edgar.Characters.Core;
 using Edgar.Core;
 
-namespace Edgar.Items.Core
+namespace Edgar.Inspection.Core
 {
     /// <summary>
     /// Singleton that owns the item inspection state machine.
