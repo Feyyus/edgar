@@ -8,7 +8,7 @@ namespace Edgar.Characters.Core
     /// </summary>
     public class BillboardSprite : MonoBehaviour
     {
-        [SerializeField] private bool lockYAxis = true;
+        [SerializeField] private bool _lockYAxis = true;
 
         private Camera _mainCamera;
 
@@ -21,7 +21,7 @@ namespace Edgar.Characters.Core
         {
             if (_mainCamera == null) return;
 
-            if (lockYAxis)
+            if (_lockYAxis)
             {
                 // Only rotate on Y axis (character stays upright)
                 Vector3 directionToCamera = _mainCamera.transform.position - transform.position;

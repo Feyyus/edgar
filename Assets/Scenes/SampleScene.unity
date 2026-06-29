@@ -163,10 +163,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1c74302e4add4c88bcdcacf6cba2d8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionManager
-  maxRaycastDistance: 1000
-  interactionMask:
+  _maxRaycastDistance: 100
+  _interactionMask:
     serializedVersion: 2
-    m_Bits: 704
+    m_Bits: 0
 --- !u!1 &17280455
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,9 +601,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9646a0bcb7bc542488422ff03b2d3ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
-  dialogueRunner: {fileID: 8309902629288386213}
-  navigationUI: {fileID: 146187805}
-  dialoguePanel: {fileID: 127072043}
+  _dialogueRunner: {fileID: 0}
+  _navigationUI: {fileID: 0}
+  _dialoguePanel: {fileID: 0}
 --- !u!1001 &100810600
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -974,9 +974,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c55007ed0b3443284f0bca90b6d39b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NavigationUI
-  navSystem: {fileID: 1021048943}
-  buttonContainer: {fileID: 146187803}
-  buttonPrefab: {fileID: 3739784575598936874, guid: eafb34ce9dd48459d928db3480aa09f4, type: 3}
+  _navSystem: {fileID: 0}
+  _buttonContainer: {fileID: 0}
+  _buttonPrefab: {fileID: 0}
 --- !u!114 &146187806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1134,8 +1134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeb39cd8a3de64bf49f7fecfac8bdb2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorChangeAction
-  highlightColor: {r: 1, g: 0, b: 0, a: 1}
-  highlightDuration: 0.5
+  _highlightColor: {r: 1, g: 0, b: 0, a: 1}
+  _highlightDuration: 0.5
 --- !u!114 &287546973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1148,9 +1148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec2ad02952db421dad3c87fa65a8573, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScalePulseAction
-  pulseScale: 1.2
-  pulseDuration: 0.5
-  pulseCurve:
+  _pulseScale: 1.2
+  _pulseDuration: 0.5
+  _pulseCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -1186,12 +1186,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f08b613206be4ed3805c360b5660a87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TextPopupAction
-  popupText: Clicked!
-  textColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  popupDuration: 2
-  floatSpeed: 1
-  floatDistance: 1
-  fontSize: 24
+  _popupText: Clicked!
+  _textColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  _popupDuration: 2
+  _floatSpeed: 1
+  _floatDistance: 1
+  _fontSize: 24
 --- !u!114 &287546975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1204,7 +1204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DebugLogAction
-  customMessage: CLICKED
+  _customMessage: 
 --- !u!114 &287546977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1217,7 +1217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b3b555afbed40c5986b0af2406550c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BillboardSprite
-  lockYAxis: 1
+  _lockYAxis: 1
 --- !u!114 &287546978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1230,7 +1230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Character
-  data: {fileID: 11400000, guid: a364914b6fffa4b6cbb08f761aa75cf8, type: 2}
+  _data: {fileID: 0}
 --- !u!212 &287546979
 SpriteRenderer:
   serializedVersion: 2
@@ -1338,12 +1338,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 182d87f7d2ff144df92f11d184e081f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableIcon
-  icon: {fileID: 21300000, guid: 7ad6a4c7779a649968f40cc5b27ce30b, type: 3}
-  heightPadding: 0.25
-  bobSpeed: 1.5
-  bobAmount: 0.06
-  color: {r: 0, g: 0, b: 0, a: 1}
-  scale: 0.4
+  _icon: {fileID: 0}
+  _heightPadding: 0.25
+  _bobSpeed: 1.5
+  _bobAmount: 0.06
+  _color: {r: 1, g: 1, b: 1, a: 1}
+  _scale: 0.4
 --- !u!114 &287546983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1449,8 +1449,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.025701541, y: 0.6502424, z: -0.022019546, w: 0.75897264}
-  m_LocalPosition: {x: -1.315, y: 1.158, z: 0.898}
+  m_LocalRotation: {x: 0, y: 0.99469244, z: -0.10289298, w: 0}
+  m_LocalPosition: {x: 0.019, y: 1.289, z: 2.752}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1895,12 +1895,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 182d87f7d2ff144df92f11d184e081f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableIcon
-  icon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
-  heightPadding: 0.15
-  bobSpeed: 1.5
-  bobAmount: 0.06
-  color: {r: 1, g: 1, b: 1, a: 1}
-  scale: 0.4
+  _icon: {fileID: 0}
+  _heightPadding: 0.25
+  _bobSpeed: 1.5
+  _bobAmount: 0.06
+  _color: {r: 1, g: 1, b: 1, a: 1}
+  _scale: 0.4
 --- !u!114 &425705064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2277,7 +2277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DebugLogAction
-  customMessage: CLICKED
+  _customMessage: 
 --- !u!65 &577209159
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2311,7 +2311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b3b555afbed40c5986b0af2406550c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BillboardSprite
-  lockYAxis: 1
+  _lockYAxis: 1
 --- !u!114 &577209161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2324,7 +2324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Character
-  data: {fileID: 11400000, guid: 54b8ca619b202405f936b8004821d12f, type: 2}
+  _data: {fileID: 0}
 --- !u!212 &577209162
 SpriteRenderer:
   serializedVersion: 2
@@ -2411,8 +2411,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeb39cd8a3de64bf49f7fecfac8bdb2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorChangeAction
-  highlightColor: {r: 1, g: 0, b: 0, a: 1}
-  highlightDuration: 0.5
+  _highlightColor: {r: 1, g: 0, b: 0, a: 1}
+  _highlightDuration: 0.5
 --- !u!114 &577209165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2425,9 +2425,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec2ad02952db421dad3c87fa65a8573, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScalePulseAction
-  pulseScale: 1.2
-  pulseDuration: 0.5
-  pulseCurve:
+  _pulseScale: 1.2
+  _pulseDuration: 0.5
+  _pulseCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -2463,12 +2463,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f08b613206be4ed3805c360b5660a87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TextPopupAction
-  popupText: Clicked!
-  textColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  popupDuration: 2
-  floatSpeed: 1
-  floatDistance: 1
-  fontSize: 24
+  _popupText: Clicked!
+  _textColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  _popupDuration: 2
+  _floatSpeed: 1
+  _floatDistance: 1
+  _fontSize: 24
 --- !u!114 &577209167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2481,12 +2481,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 182d87f7d2ff144df92f11d184e081f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableIcon
-  icon: {fileID: 21300000, guid: 7ad6a4c7779a649968f40cc5b27ce30b, type: 3}
-  heightPadding: 0.25
-  bobSpeed: 1.5
-  bobAmount: 0.06
-  color: {r: 0, g: 0, b: 0, a: 1}
-  scale: 0.4
+  _icon: {fileID: 0}
+  _heightPadding: 0.25
+  _bobSpeed: 1.5
+  _bobAmount: 0.06
+  _color: {r: 1, g: 1, b: 1, a: 1}
+  _scale: 0.4
 --- !u!114 &577209168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2499,7 +2499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd70f5305134246518a592a137bfbd00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartDialogueAction
-  yarnNode: Guard_Intro
+  _yarnNode: 
 --- !u!114 &577209169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7526,12 +7526,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 182d87f7d2ff144df92f11d184e081f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableIcon
-  icon: {fileID: 21300000, guid: 7ad6a4c7779a649968f40cc5b27ce30b, type: 3}
-  heightPadding: 0.15
-  bobSpeed: 3
-  bobAmount: 0.1
-  color: {r: 0, g: 0, b: 0, a: 1}
-  scale: 2
+  _icon: {fileID: 0}
+  _heightPadding: 0.25
+  _bobSpeed: 1.5
+  _bobAmount: 0.06
+  _color: {r: 1, g: 1, b: 1, a: 1}
+  _scale: 0.4
 --- !u!114 &1727623097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7749,15 +7749,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd0b062cbc39044af8139d63af236ff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InspectionManager
-  inspectionAnchor: {fileID: 592334884}
-  inspectionUI: {fileID: 2111231073}
-  inputHandler: {fileID: 1783085158}
-  navigationUI: {fileID: 146187805}
-  rotationSensitivity: 0.3
-  zoomSensitivity: 0.05
-  minZoom: 0.5
-  maxZoom: 3
-  originalBehavior: 0
+  _inspectionAnchor: {fileID: 0}
+  _inspectionUI: {fileID: 0}
+  _inputHandler: {fileID: 0}
+  _viewportController: {fileID: 0}
+  _copySpawner: {fileID: 0}
 --- !u!114 &1783085158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7770,7 +7766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610395239821541b0ab4ded7795c2d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InspectionInputHandler
-  manager: {fileID: 1783085157}
+  _manager: {fileID: 0}
 --- !u!4 &1783085159
 Transform:
   m_ObjectHideFlags: 0
@@ -8194,8 +8190,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ccc53ee8769426697bf2263f32d5f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomNameUI
-  navSystem: {fileID: 1021048943}
-  label: {fileID: 1909202587}
+  _navigationSystem: {fileID: 0}
+  _roomNameText: {fileID: 0}
 --- !u!114 &1909202587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8804,12 +8800,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 182d87f7d2ff144df92f11d184e081f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableIcon
-  icon: {fileID: 21300000, guid: 7ad6a4c7779a649968f40cc5b27ce30b, type: 3}
-  heightPadding: 0.15
-  bobSpeed: 3
-  bobAmount: 0.1
-  color: {r: 0, g: 0, b: 0, a: 1}
-  scale: 2
+  _icon: {fileID: 0}
+  _heightPadding: 0.25
+  _bobSpeed: 1.5
+  _bobAmount: 0.06
+  _color: {r: 1, g: 1, b: 1, a: 1}
+  _scale: 0.4
 --- !u!114 &2077857563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8932,10 +8928,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc8f9aecfa08840fc9fc203b60adbdb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InspectionUI
-  canvasGroup: {fileID: 2111231070}
-  titleText: {fileID: 838777545}
-  descriptionText: {fileID: 1714268928}
-  closeButton: {fileID: 993411383}
+  _canvasGroup: {fileID: 0}
+  _titleText: {fileID: 0}
+  _descriptionText: {fileID: 0}
+  _closeButton: {fileID: 0}
 --- !u!1001 &2130823355
 PrefabInstance:
   m_ObjectHideFlags: 0

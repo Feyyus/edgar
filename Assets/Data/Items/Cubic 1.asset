@@ -14,9 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemId: catto
   displayName: Catto
-  description: "\u0423 \u043C\u0435\u043D\u044F \u0435\u0441\u0442\u044C \u043A\u043E\u043B\u0430
-    \u0438 \u043F\u0438\u0432\u0430\u0441"
+  description: "\u0423 \u043C\u0435\u043D\u044F \u0435\u0441\u0442\u044C \"\u0414\u043E\u0431\u0440\u044B\u0439
+    \u041A\u043E\u043B\u0430\" \u0438 \"\u0416\u0438\u0433\u0443\u043B\u0435\u0432\u0441\u043A\u043E\u0435\""
   sprite: {fileID: 21300000, guid: 7a5a84189f20e439cb8d3145cc2d69c5, type: 3}
   meshPrefab: {fileID: 479466414129824153, guid: b13035448fcf64be480bbd01d7f77886, type: 3}
   inspectionScale: {x: 1, y: 1, z: 1}
   isInteractive: 1
+  category: 0
+  sourceDescription: 
+  connectedItemIds: []
