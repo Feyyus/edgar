@@ -1,8 +1,9 @@
 using UnityEngine;
 using Yarn.Unity;
-using Edgar.Interaction;
+using Edgar.Input;
 using Edgar.Dossier.Triggers;
 using Edgar.UI;
+using Edgar.Core;
 
 namespace Edgar.Dialogue
 {
@@ -57,8 +58,8 @@ namespace Edgar.Dialogue
 
             if (_dialoguePanel != null) _dialoguePanel.SetActive(true);
 
-            if (InteractionManager.Instance != null) InteractionManager.Instance.enabled = false;
-            if (_navigationUI != null) _navigationUI.gameObject.SetActive(false);
+            if (GameFlowController.Instance != null)
+                GameFlowController.Instance.EnterDialogue();
 
             _dialogueRunner.StartDialogue(nodeName);
         }
@@ -72,8 +73,8 @@ namespace Edgar.Dialogue
         {
             if (_dialoguePanel != null) _dialoguePanel.SetActive(false);
 
-            if (InteractionManager.Instance != null) InteractionManager.Instance.enabled = true;
-            if (_navigationUI != null) _navigationUI.gameObject.SetActive(true);
+            if (GameFlowController.Instance != null)
+                GameFlowController.Instance.ExitDialogue();
 
             // Notify all DialogueEndTrigger components
             var triggers = FindObjectsByType<DialogueEndTrigger>(FindObjectsSortMode.None);

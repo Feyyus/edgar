@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Edgar.Dossier.Core;
 
@@ -34,8 +35,14 @@ namespace Edgar.Dossier.UI
         private List<ClueEntry> _entries = new();
         private ClueEntry _selectedEntry;
         private List<ClueEntryUI> _entryUIs = new();
+        private InputAction _toggleAction;
 
         // ===== Unity Lifecycle =====
+
+        private void Awake()
+        {
+            _toggleAction = InputSystem.actions?.FindAction("Player/ToggleDossier");
+        }
 
         private void Start()
         {
@@ -47,16 +54,28 @@ namespace Edgar.Dossier.UI
             DossierService.OnClueUpdated += OnClueUpdated;
         }
 
+        private void OnEnable()
+        {
+            if (_toggleAction != null)
+            {
+                _toggleAction.performed += OnToggleRequested;
+                _toggleAction.Enable();
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (_toggleAction != null)
+            {
+                _toggleAction.performed -= OnToggleRequested;
+                _toggleAction.Disable();
+            }
+        }
+
         private void OnDestroy()
         {
             DossierService.OnClueAdded -= OnClueAdded;
             DossierService.OnClueUpdated -= OnClueUpdated;
-        }
-
-        private void Update()
-        {
-            // TODO: Use a proper input system instead of hardcoding Tab key
-            if (Input.GetKeyDown(KeyCode.Tab)) Toggle();
         }
 
         // ===== Public API =====
@@ -65,6 +84,11 @@ namespace Edgar.Dossier.UI
         {
             if (gameObject.activeSelf) Close();
             else Open();
+        }
+
+        private void OnToggleRequested(InputAction.CallbackContext context)
+        {
+            Toggle();
         }
 
         public void Open()

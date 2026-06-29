@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Edgar.Core;
 
-namespace Edgar.Interaction
+namespace Edgar.Input
 {
     /// <summary>
     /// Handles all player tap/click input for the scene.
@@ -64,6 +64,8 @@ namespace Edgar.Interaction
 
         private void Update()
         {
+            if (!CanHandleInput()) return;
+
             if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
                 _lastPointerPosition = Touchscreen.current.primaryTouch.position.ReadValue();
             else if (Mouse.current != null)
@@ -81,6 +83,7 @@ namespace Edgar.Interaction
 
         private void OnClick(InputAction.CallbackContext ctx)
         {
+            if (!CanHandleInput()) return;
             if (Time.time - _lastInteractionTime < INTERACTION_COOLDOWN) return;
             _lastInteractionTime = Time.time;
 
@@ -90,6 +93,11 @@ namespace Edgar.Interaction
             var interactable = hit.Value.collider.GetComponent<IInteractable>();
             if (interactable != null && interactable.IsInteractive)
                 interactable.Interact();
+        }
+
+        private bool CanHandleInput()
+        {
+            return enabled && (GameFlowController.Instance == null || GameFlowController.Instance.CanInteract);
         }
 
         private RaycastHit? GetPointerHit()
