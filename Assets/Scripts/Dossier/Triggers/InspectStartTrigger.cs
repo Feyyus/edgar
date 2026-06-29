@@ -7,10 +7,8 @@ namespace Edgar.Dossier.Triggers
     public class InspectStartTrigger : MonoBehaviour
     {
         [SerializeField] private ClueData _clue;
-        [SerializeField] private bool _logOnce = true;
 
         private InspectableObject _inspectable;
-        private bool _hasLogged;
 
         private void Awake()
         {
@@ -31,11 +29,9 @@ namespace Edgar.Dossier.Triggers
 
         public void LogClue()
         {
-            if (_logOnce && _hasLogged) return;
             if (_clue == null) return;
 
             DossierService.AddClue(_clue);
-            _hasLogged = true;
         }
     }
 }

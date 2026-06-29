@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc9948253d0e849a7aabcaa9a8337d12, type: 3}
+  m_Script: {fileID: 11500000, guid: ea41cc90aa0651a4ab327e9e88f8703c, type: 3}
   m_Name: PlantData
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemId: potted_plant
-  displayName: Potted Plant
-  description: An unremarkable plant. The soil looks recently disturbed.
-  sprite: {fileID: 0}
-  meshPrefab: {fileID: 0}
-  inspectionScale: {x: 0.4, y: 0.4, z: 0.4}
-  isInteractive: 1
+  title: This is a fucking lpant
+  description: Plant yes
+  inspectionPrefab: {fileID: 0}
+  inspectionScale: {x: 1, y: 1, z: 1}

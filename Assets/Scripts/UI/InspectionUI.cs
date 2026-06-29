@@ -1,47 +1,61 @@
 using UnityEngine;
 using TMPro;
-using Edgar.Dossier.Core;
 using Edgar.Inspection.Core;
 
 namespace Edgar.UI
 {
     /// <summary>
     /// Manages the UI panel shown during item inspection.
-    /// Wire up via InspectionManager's inspector field.
+    /// Displays title and description from InspectableData.
     /// </summary>
     public class InspectionUI : MonoBehaviour
     {
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private TextMeshProUGUI _titleText;
         [SerializeField] private TextMeshProUGUI _descriptionText;
-
-        [Tooltip("Close button shown on mobile. Wire its OnClick to OnCloseButtonClicked.")]
         [SerializeField] private GameObject _closeButton;
 
         private void Awake()
         {
+            if (_canvasGroup == null)
+                _canvasGroup = GetComponent<CanvasGroup>();
+
+            if (_canvasGroup == null)
+                _canvasGroup = gameObject.AddComponent<CanvasGroup>();
+
             Hide();
         }
 
-        public void Show(ClueData data)
+        public void Show(InspectableData data)
         {
-            if (_titleText != null) _titleText.text = data.title;
-            if (_descriptionText != null) _descriptionText.text = data.description;
+            Debug.Log($"[InspectionUI] Show called with data: {(data != null ? data.title : "null")}");
+
+            if (data == null)
+            {
+                _titleText.text = "Unknown Object";
+                _descriptionText.text = "";
+                Debug.LogWarning("[InspectionUI] Show called with null InspectableData");
+            }
+            else
+            {
+                if (_titleText != null) _titleText.text = data.title;
+                if (_descriptionText != null) _descriptionText.text = data.description;
+            }
 
             _canvasGroup.alpha = 1f;
             _canvasGroup.blocksRaycasts = true;
+            _canvasGroup.interactable = true;
 
-            if (_closeButton != null)
-                _closeButton.SetActive(true);
+            _closeButton?.SetActive(true);
         }
 
         public void Hide()
         {
             _canvasGroup.alpha = 0f;
             _canvasGroup.blocksRaycasts = false;
+            _canvasGroup.interactable = false;
 
-            if (_closeButton != null)
-                _closeButton.SetActive(false);
+            _closeButton?.SetActive(false);
         }
 
         public void OnCloseButtonClicked()

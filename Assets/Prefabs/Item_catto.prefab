@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4264482565867092809}
-  - component: {fileID: 1441548166010773499}
-  - component: {fileID: 1239831977864508673}
   - component: {fileID: 8256728571029179533}
+  - component: {fileID: 6658006480199202104}
+  - component: {fileID: 2568210136556918128}
+  - component: {fileID: 2012080348193758195}
   m_Layer: 7
   m_Name: Item_catto
   m_TagString: Untagged
@@ -34,42 +35,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1441548166010773499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479466414129824153}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03f9f6cf3cc484813b3419b0d89c03a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InspectableItem
-  data: {fileID: 11400000, guid: e717b39b51d794d76b56d012a81c7c27, type: 2}
---- !u!136 &1239831977864508673
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479466414129824153}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &8256728571029179533
 SpriteRenderer:
   serializedVersion: 2
@@ -129,3 +94,57 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &6658006480199202104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479466414129824153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d1290b27ddc1a04a803063a7803545a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Edgar.Inspection.Core.InspectableObject
+  _inspectionPrefab: {fileID: 479466414129824153}
+  _inspectionScale: {x: 1, y: 1, z: 1}
+  _isInteractive: 1
+--- !u!65 &2568210136556918128
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479466414129824153}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.735, y: 0.722, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2012080348193758195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479466414129824153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.8, b: 0.2, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []

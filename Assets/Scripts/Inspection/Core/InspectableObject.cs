@@ -6,15 +6,17 @@ namespace Edgar.Inspection.Core
 {
     public class InspectableObject : MonoBehaviour, IInteractable
     {
-        [SerializeField] private GameObject _inspectionPrefab;
-        [SerializeField] private Vector3 _inspectionScale = Vector3.one;
+        [SerializeField] private InspectableData _inspectableData;
         [SerializeField] private bool _isInteractive = true;
 
         public event Action OnInspectionStarted;
         public event Action OnInspectionEnded;
 
-        public GameObject InspectionPrefab => _inspectionPrefab;
-        public Vector3 InspectionScale => _inspectionScale;
+        public InspectableData InspectableData => _inspectableData;
+        public GameObject InspectionPrefab => _inspectableData?.inspectionPrefab;
+        public Vector3 InspectionScale => _inspectableData?.inspectionScale ?? Vector3.one;
+        public string Title => _inspectableData?.title ?? gameObject.name;
+        public string Description => _inspectableData?.description ?? "";
         public bool IsInteractive => _isInteractive;
 
         private bool _isBeingInspected;

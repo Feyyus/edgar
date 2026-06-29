@@ -13,12 +13,13 @@ namespace Edgar.Inspection.Core
     /// Spawns a copy of the clicked item on the InspectionLayer, handles rotation/zoom,
     /// and coordinates enabling/disabling of other input systems.
     /// </summary>
+    [RequireComponent(typeof(InspectionViewportController))]
+    [RequireComponent(typeof(InspectionCopySpawner))]
     public class InspectionManager : MonoBehaviour
     {
         public static InspectionManager Instance { get; private set; }
 
         [Header("Scene References")]
-        [SerializeField] private Transform _inspectionAnchor;
         [SerializeField] private InspectionUI _inspectionUI;
         [SerializeField] private InspectionInputHandler _inputHandler;
         [SerializeField] private InspectionViewportController _viewportController;
@@ -52,6 +53,7 @@ namespace Edgar.Inspection.Core
             if (IsInspecting) return;
 
             _currentItem = item;
+
             if (_viewportController != null)
                 _viewportController.ResetView();
 
@@ -63,33 +65,35 @@ namespace Edgar.Inspection.Core
             if (GameFlowController.Instance != null)
                 GameFlowController.Instance.EnterInspection();
 
-            if (_inputHandler != null) _inputHandler.enabled = true;
+            SetInputEnabled(true);
 
-            _inspectionUI.Show(null);
-
-            // Fire actions (if any)
-            // item.FireActions(InspectionTrigger.OnOpen); // Keep this if you have actions
+            // Show inspection UI with InspectableData (title, description)
+            _inspectionUI.Show(item.InspectableData);
         }
 
         public void CloseInspection()
         {
             if (!IsInspecting) return;
 
-            // item.FireActions(InspectionTrigger.OnClose);
             _currentItem.EndInspection();
 
             if (_copySpawner != null && _copySpawner.OriginalBehavior == InspectionOriginalBehavior.Hide)
                 _currentItem.gameObject.SetActive(true);
 
-            Destroy(_inspectionCopy);
-            _inspectionCopy = null;
+            if (_inspectionCopy != null)
+            {
+                Destroy(_inspectionCopy);
+                _inspectionCopy = null;
+            }
 
-            if (_inputHandler != null) _inputHandler.enabled = false;
+            SetInputEnabled(false);
+
             if (GameFlowController.Instance != null)
                 GameFlowController.Instance.ExitInspection();
 
             _inspectionUI.Hide();
             _currentItem = null;
+
             if (_viewportController != null)
                 _viewportController.ResetView();
         }

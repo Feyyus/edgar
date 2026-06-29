@@ -87,10 +87,16 @@ namespace Edgar.Inspection.Core
             float aspect = sprite.rect.width / sprite.rect.height;
             quad.transform.localScale = new Vector3(aspect, 1f, 1f);
 
-            var mat = new Material(Shader.Find("Universal Render Pipeline/Unlit"))
-            {
-                mainTexture = sprite.texture
-            };
+            // Create double-sided material with transparency support
+            var mat = new Material(Shader.Find("Universal Render Pipeline/Unlit"));
+            mat.mainTexture = sprite.texture;
+
+            // Make it double-sided
+            mat.SetFloat("_Cull", 0); // 0 = Off (double-sided), 1 = Front, 2 = Back
+
+            // If your sprite uses transparency
+            mat.SetFloat("_Surface", 1); // 0 = Opaque, 1 = Transparent
+
             quad.GetComponent<MeshRenderer>().material = mat;
 
             SetLayerRecursive(quad, LayerMask.NameToLayer("InspectionLayer"));

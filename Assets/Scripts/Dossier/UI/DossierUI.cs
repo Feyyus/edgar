@@ -41,8 +41,11 @@ namespace Edgar.Dossier.UI
 
         private void Awake()
         {
-            _toggleAction = InputSystem.actions?.FindAction("Player/ToggleDossier");
+            _toggleAction = InputSystem.actions?.FindAction("UI/ToggleDossier");
+            _toggleAction.performed += OnToggleRequested;
+            _toggleAction.Enable();
         }
+
 
         private void Start()
         {
@@ -52,24 +55,6 @@ namespace Edgar.Dossier.UI
 
             DossierService.OnClueAdded += OnClueAdded;
             DossierService.OnClueUpdated += OnClueUpdated;
-        }
-
-        private void OnEnable()
-        {
-            if (_toggleAction != null)
-            {
-                _toggleAction.performed += OnToggleRequested;
-                _toggleAction.Enable();
-            }
-        }
-
-        private void OnDisable()
-        {
-            if (_toggleAction != null)
-            {
-                _toggleAction.performed -= OnToggleRequested;
-                _toggleAction.Disable();
-            }
         }
 
         private void OnDestroy()
@@ -93,6 +78,7 @@ namespace Edgar.Dossier.UI
 
         public void Open()
         {
+            Debug.Log("DossierUI: Open called");
             gameObject.SetActive(true);
             Refresh();
         }
