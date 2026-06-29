@@ -51,4 +51,6 @@ public class CameraNavigationSystem : MonoBehaviour
 
     public string GetDisplayName(string pointId) =>
         _markerMap.TryGetValue(pointId, out var m) ? m.data.pointName : pointId;
+
+    public string GetCurrentPointName() => _current?.data.pointName ?? "";
 }

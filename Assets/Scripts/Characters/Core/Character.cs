@@ -1,103 +1,97 @@
 using UnityEngine;
+using Edgar.Characters.Actions;
+using Edgar.Core;
 
-/// <summary>
-/// Main character component that manages character data and interactions.
-/// Coordinates between visual representation, data, and actions.
-/// </summary>
-[RequireComponent(typeof(SpriteRenderer))]
-public class Character : MonoBehaviour, IInteractable
+namespace Edgar.Characters.Core
 {
-    [SerializeField] private CharacterData data;
-    
-    private SpriteRenderer _spriteRenderer;
-    private ICharacterAction[] _actions;
-
-    public CharacterData Data => data;
-    public bool IsInteractive => data != null && data.isInteractive;
-
-    void Start()
-    {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        
-        // Cache all action components
-        _actions = GetComponents<ICharacterAction>();
-        
-        // Apply character data
-        if (data != null)
-        {
-            ApplyCharacterData();
-        }
-        else
-        {
-            Debug.LogWarning($"[Character.Start] Character data is null for {gameObject.name}");
-        }
-    }
-
-    void ApplyCharacterData()
-    {
-        if (_spriteRenderer != null && data.sprite != null)
-        {
-            _spriteRenderer.sprite = data.sprite;
-        }
-        
-        gameObject.name = $"Character_{data.characterId}";
-    }
-
     /// <summary>
-    /// Called when the character is interacted with (e.g., clicked).
-    /// Executes all attached actions.
+    /// Main character component that manages character data and interactions.
+    /// Coordinates between visual representation, data, and actions.
     /// </summary>
-    public void Interact()
+    [RequireComponent(typeof(SpriteRenderer))]
+    public class Character : MonoBehaviour, IInteractable
     {
-        if (!IsInteractive)
-        {
-            return;
-        }
+        [SerializeField] private CharacterData _data;
 
-        if (_actions == null || _actions.Length == 0)
+        private SpriteRenderer _spriteRenderer;
+        private ICharacterAction[] _actions;
+
+        public CharacterData Data => _data;
+        public bool IsInteractive => _data != null && _data.isInteractive;
+
+        private void Start()
         {
-            Debug.LogWarning($"[Character.Interact] No actions found on character {gameObject.name}");
-            // Try to refresh actions array
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+
             _actions = GetComponents<ICharacterAction>();
-        }
 
-        foreach (var action in _actions)
-        {
-            if (action != null)
+            if (_data != null)
             {
-                action.Execute(this);
+                ApplyCharacterData();
             }
             else
             {
-                Debug.LogWarning($"[Character.Interact] Null action found in actions array");
+                Debug.LogWarning($"[Character.Start] Character data is null for {gameObject.name}");
             }
         }
-    }
 
-    /// <summary>
-    /// Update character data at runtime.
-    /// </summary>
-    public void SetCharacterData(CharacterData newData)
-    {
-        data = newData;
-        if (_spriteRenderer != null)
+        private void ApplyCharacterData()
         {
-            ApplyCharacterData();
+            if (_spriteRenderer != null && _data.sprite != null)
+            {
+                _spriteRenderer.sprite = _data.sprite;
+            }
+
+            gameObject.name = $"Character_{_data.characterId}";
         }
-    }
+
+        public void Interact()
+        {
+            if (!IsInteractive)
+            {
+                return;
+            }
+
+            if (_actions == null || _actions.Length == 0)
+            {
+                Debug.LogWarning($"[Character.Interact] No actions found on character {gameObject.name}");
+                _actions = GetComponents<ICharacterAction>();
+            }
+
+            foreach (var action in _actions)
+            {
+                if (action != null)
+                {
+                    action.Execute(this);
+                }
+                else
+                {
+                    Debug.LogWarning($"[Character.Interact] Null action found in actions array");
+                }
+            }
+        }
+
+        public void SetCharacterData(CharacterData newData)
+        {
+            _data = newData;
+            if (_spriteRenderer != null)
+            {
+                ApplyCharacterData();
+            }
+        }
 
 #if UNITY_EDITOR
-    void OnValidate()
-    {
-        // Update sprite in editor when data changes
-        if (data != null && data.sprite != null)
+        private void OnValidate()
         {
-            var sr = GetComponent<SpriteRenderer>();
-            if (sr != null)
+            if (_data != null && _data.sprite != null)
             {
-                sr.sprite = data.sprite;
+                var sr = GetComponent<SpriteRenderer>();
+                if (sr != null)
+                {
+                    sr.sprite = _data.sprite;
+                }
             }
         }
-    }
 #endif
+    }
 }

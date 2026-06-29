@@ -1,28 +1,33 @@
 using UnityEngine;
+using Edgar.Characters.Core;
 
-/// <summary>
-/// Example action that logs a message when the character is interacted with.
-/// Useful for testing and debugging character interactions.
-/// </summary>
-public class DebugLogAction : MonoBehaviour, ICharacterAction
+namespace Edgar.Characters.Actions
 {
-    [SerializeField] private string customMessage = "";
-
-    public void Execute(Character character)
+    /// <summary>
+    /// Example action that logs a message when the character is interacted with.
+    /// Useful for testing and debugging character interactions.
+    /// </summary>
+    public class DebugLogAction : MonoBehaviour, ICharacterAction
     {
-        if (character.Data == null)
-        {
-            Debug.LogError($"[DebugLogAction.Execute] Character data is null for {character.gameObject.name}");
-            return;
-        }
+        [SerializeField] private string _customMessage = "";
 
-        if (!string.IsNullOrEmpty(customMessage))
+        public void Execute(Character character)
         {
-            Debug.Log($"[{character.Data.displayName}]: {customMessage}");
-        }
-        else
-        {
-            Debug.Log($"Interacted with character: {character.Data.displayName} (ID: {character.Data.characterId})");
+            if (character.Data == null)
+            {
+                Debug.LogError($"[DebugLogAction.Execute] Character data is null for {character.gameObject.name}");
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(_customMessage))
+            {
+                Debug.Log($"[{character.Data.displayName}]: {_customMessage}");
+            }
+            else
+            {
+                Debug.Log($"Interacted with character: {character.Data.displayName} (ID: {character.Data.characterId})");
+            }
         }
     }
+
 }

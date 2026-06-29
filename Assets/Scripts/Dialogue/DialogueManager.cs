@@ -1,56 +1,86 @@
 using UnityEngine;
 using Yarn.Unity;
+using Edgar.Interaction;
+using Edgar.Dossier.Triggers;
+using Edgar.UI;
 
-public class DialogueManager : MonoBehaviour
+namespace Edgar.Dialogue
 {
-    public static DialogueManager Instance { get; private set; }
-
-    [SerializeField] private DialogueRunner dialogueRunner;
-    [SerializeField] private NavigationUI navigationUI;
-    [SerializeField] private GameObject dialoguePanel;
-
-    public bool IsDialogueActive => dialogueRunner != null && dialogueRunner.IsDialogueRunning;
-
-    void Awake()
+    public class DialogueManager : MonoBehaviour
     {
-        if (Instance != null && Instance != this)
+        public static DialogueManager Instance { get; private set; }
+
+        [SerializeField] private DialogueRunner _dialogueRunner;
+        [SerializeField] private NavigationUI _navigationUI;
+        [SerializeField] private GameObject _dialoguePanel;
+
+        private string _lastNodeName;
+
+        public bool IsDialogueActive => _dialogueRunner != null && _dialogueRunner.IsDialogueRunning;
+
+        private void Awake()
         {
-            Destroy(gameObject);
-            return;
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            Instance = this;
         }
-        Instance = this;
-    }
 
-    void Start()
-    {
-        if (dialoguePanel != null) dialoguePanel.SetActive(false);
+        private void Start()
+        {
+            if (_dialoguePanel != null) _dialoguePanel.SetActive(false);
 
-        if (dialogueRunner != null)
-            dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
-    }
+            if (_dialogueRunner != null)
+            {
+                _dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
+                _dialogueRunner.onNodeStart.AddListener(OnNodeStart);
+            }
+        }
 
-    void OnDestroy()
-    {
-        if (dialogueRunner != null)
-            dialogueRunner.onDialogueComplete.RemoveListener(OnDialogueComplete);
-    }
+        private void OnDestroy()
+        {
+            if (_dialogueRunner != null)
+            {
+                _dialogueRunner.onDialogueComplete.RemoveListener(OnDialogueComplete);
+                _dialogueRunner.onNodeStart.RemoveListener(OnNodeStart);
+            }
+        }
 
-    public void StartDialogue(string nodeName)
-    {
-        if (IsDialogueActive) return;
-        if (dialogueRunner == null) return;
+        public void StartDialogue(string nodeName)
+        {
+            if (IsDialogueActive) return;
+            if (_dialogueRunner == null) return;
 
-        if (dialoguePanel != null) dialoguePanel.SetActive(true);
-        if (InteractionManager.Instance != null) InteractionManager.Instance.enabled = false;
-        if (navigationUI != null) navigationUI.enabled = false;
+            _lastNodeName = nodeName;
 
-        dialogueRunner.StartDialogue(nodeName);
-    }
+            if (_dialoguePanel != null) _dialoguePanel.SetActive(true);
 
-    private void OnDialogueComplete()
-    {
-        if (dialoguePanel != null) dialoguePanel.SetActive(false);
-        if (InteractionManager.Instance != null) InteractionManager.Instance.enabled = true;
-        if (navigationUI != null) navigationUI.enabled = true;
+            if (InteractionManager.Instance != null) InteractionManager.Instance.enabled = false;
+            if (_navigationUI != null) _navigationUI.gameObject.SetActive(false);
+
+            _dialogueRunner.StartDialogue(nodeName);
+        }
+
+        private void OnNodeStart(string nodeName)
+        {
+            _lastNodeName = nodeName;
+        }
+
+        private void OnDialogueComplete()
+        {
+            if (_dialoguePanel != null) _dialoguePanel.SetActive(false);
+
+            if (InteractionManager.Instance != null) InteractionManager.Instance.enabled = true;
+            if (_navigationUI != null) _navigationUI.gameObject.SetActive(true);
+
+            // Notify all DialogueEndTrigger components
+            var triggers = FindObjectsByType<DialogueEndTrigger>(FindObjectsSortMode.None);
+            foreach (var trigger in triggers)
+            {
+                trigger.OnDialogueComplete(_lastNodeName);
+            }
+        }
     }
 }

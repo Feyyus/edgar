@@ -1,38 +1,41 @@
 using UnityEngine;
 
-/// <summary>
-/// Makes a sprite always face the camera.
-/// Useful for 2D sprites in 3D space (billboard effect).
-/// </summary>
-public class BillboardSprite : MonoBehaviour
+namespace Edgar.Characters.Core
 {
-    [SerializeField] private bool lockYAxis = true;
-    
-    private Camera _mainCamera;
-
-    void Start()
+    /// <summary>
+    /// Makes a sprite always face the camera.
+    /// Useful for 2D sprites in 3D space (billboard effect).
+    /// </summary>
+    public class BillboardSprite : MonoBehaviour
     {
-        _mainCamera = Camera.main;
-    }
+        [SerializeField] private bool lockYAxis = true;
 
-    void LateUpdate()
-    {
-        if (_mainCamera == null) return;
+        private Camera _mainCamera;
 
-        if (lockYAxis)
+        void Start()
         {
-            // Only rotate on Y axis (character stays upright)
-            Vector3 directionToCamera = _mainCamera.transform.position - transform.position;
-            directionToCamera.y = 0;
-            if (directionToCamera.sqrMagnitude > 0.001f)
-            {
-                transform.rotation = Quaternion.LookRotation(directionToCamera);
-            }
+            _mainCamera = Camera.main;
         }
-        else
+
+        void LateUpdate()
         {
-            // Full billboard (faces camera completely)
-            transform.rotation = _mainCamera.transform.rotation;
+            if (_mainCamera == null) return;
+
+            if (lockYAxis)
+            {
+                // Only rotate on Y axis (character stays upright)
+                Vector3 directionToCamera = _mainCamera.transform.position - transform.position;
+                directionToCamera.y = 0;
+                if (directionToCamera.sqrMagnitude > 0.001f)
+                {
+                    transform.rotation = Quaternion.LookRotation(directionToCamera);
+                }
+            }
+            else
+            {
+                // Full billboard (faces camera completely)
+                transform.rotation = _mainCamera.transform.rotation;
+            }
         }
     }
 }

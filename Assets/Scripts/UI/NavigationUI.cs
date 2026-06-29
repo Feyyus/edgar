@@ -1,31 +1,37 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
-public class NavigationUI : MonoBehaviour
+namespace Edgar.UI
 {
-    [SerializeField] private CameraNavigationSystem navSystem;
-    [SerializeField] private Transform buttonContainer;  // HorizontalLayoutGroup parent
-    [SerializeField] private Button buttonPrefab;
-
-    void Start()
+    public class NavigationUI : MonoBehaviour
     {
-        navSystem.OnCameraChanged += _ => RebuildButtons();
-    }
+        [SerializeField] private CameraNavigationSystem _navSystem;
+        [SerializeField] private Transform _buttonContainer;
+        [SerializeField] private Button _buttonPrefab;
 
-    void RebuildButtons()
-    {
-        foreach (Transform child in buttonContainer)
-            Destroy(child.gameObject);
-
-        foreach (var neighborId in navSystem.GetNeighbors())
+        private void Start()
         {
-            string id = neighborId; // capture for lambda
-            var btn = Instantiate(buttonPrefab, buttonContainer);
-            var label = btn.GetComponentInChildren<TMP_Text>();
-            if (label != null)
-                label.text = navSystem.GetDisplayName(id);
-            btn.onClick.AddListener(() => navSystem.GoTo(id));
+            if (_navSystem != null)
+                _navSystem.OnCameraChanged += _ => RebuildButtons();
+        }
+
+        private void RebuildButtons()
+        {
+            if (_buttonContainer == null || _navSystem == null) return;
+
+            foreach (Transform child in _buttonContainer)
+                Destroy(child.gameObject);
+
+            foreach (var neighborId in _navSystem.GetNeighbors())
+            {
+                string id = neighborId;
+                var btn = Instantiate(_buttonPrefab, _buttonContainer);
+                var label = btn.GetComponentInChildren<TMP_Text>();
+                if (label != null)
+                    label.text = _navSystem.GetDisplayName(id);
+                btn.onClick.AddListener(() => _navSystem.GoTo(id));
+            }
         }
     }
 }

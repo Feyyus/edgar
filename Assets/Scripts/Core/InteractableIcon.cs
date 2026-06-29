@@ -1,62 +1,66 @@
 using UnityEngine;
+using Edgar.Core;
 
-/// <summary>
-/// Displays a floating, camera-facing icon above any interactable object.
-/// Add to the same GameObject as Character or InspectableItem.
-/// Assign a sprite in the Inspector (e.g. a "?" or "!" icon).
-/// </summary>
-public class InteractableIcon : MonoBehaviour
+namespace Edgar.UI
 {
-    [SerializeField] private Sprite icon;
-    [SerializeField] private float heightPadding = 0.25f;
-    [SerializeField] private float bobSpeed = 1.5f;
-    [SerializeField] private float bobAmount = 0.06f;
-    [SerializeField] private Color color = Color.white;
-    [SerializeField] private float scale = 0.4f;
-
-    private Transform _pivot;
-    private float _baseHeight;
-    private Camera _cam;
-
-    void Start()
+    /// <summary>
+    /// Displays a floating, camera-facing icon above any interactable object.
+    /// Add to the same GameObject as Character or InspectableObject.
+    /// </summary>
+    public class InteractableIcon : MonoBehaviour
     {
-        _cam = Camera.main;
-        _baseHeight = ComputeTopY() + heightPadding;
+        [SerializeField] private Sprite _icon;
+        [SerializeField] private float _heightPadding = 0.25f;
+        [SerializeField] private float _bobSpeed = 1.5f;
+        [SerializeField] private float _bobAmount = 0.06f;
+        [SerializeField] private Color _color = Color.white;
+        [SerializeField] private float _scale = 0.4f;
 
-        var pivotGO = new GameObject("_InteractableIcon");
-        pivotGO.transform.SetParent(transform, false);
-        _pivot = pivotGO.transform;
-        _pivot.localScale = Vector3.one * scale;
+        private Transform _pivot;
+        private float _baseHeight;
+        private Camera _cam;
 
-        var sr = pivotGO.AddComponent<SpriteRenderer>();
-        sr.sprite = icon;
-        sr.color = color;
+        private void Start()
+        {
+            _cam = Camera.main;
+            _baseHeight = ComputeTopY() + _heightPadding;
 
-        var interactable = GetComponent<IInteractable>();
-        if (interactable != null)
-            pivotGO.SetActive(interactable.IsInteractive);
-    }
+            var pivotGO = new GameObject("_InteractableIcon");
+            pivotGO.transform.SetParent(transform, false);
+            _pivot = pivotGO.transform;
+            _pivot.localScale = Vector3.one * _scale;
 
-    void LateUpdate()
-    {
-        if (_pivot == null) return;
+            var sr = pivotGO.AddComponent<SpriteRenderer>();
+            sr.sprite = _icon;
+            sr.color = _color;
+            sr.sortingOrder = 10;
 
-        float bob = Mathf.Sin(Time.time * bobSpeed) * bobAmount;
-        _pivot.position = transform.position + Vector3.up * (_baseHeight + bob);
+            var interactable = GetComponent<IInteractable>();
+            if (interactable != null)
+                pivotGO.SetActive(interactable.IsInteractive);
+        }
 
-        if (_cam != null)
-            _pivot.rotation = _cam.transform.rotation;
-    }
+        private void LateUpdate()
+        {
+            if (_pivot == null) return;
 
-    private float ComputeTopY()
-    {
-        var renderers = GetComponentsInChildren<Renderer>();
-        if (renderers.Length == 0) return 1f;
+            float bob = Mathf.Sin(Time.time * _bobSpeed) * _bobAmount;
+            _pivot.position = transform.position + Vector3.up * (_baseHeight + bob);
 
-        var bounds = renderers[0].bounds;
-        foreach (var r in renderers)
-            bounds.Encapsulate(r.bounds);
+            if (_cam != null)
+                _pivot.rotation = _cam.transform.rotation;
+        }
 
-        return bounds.max.y - transform.position.y;
+        private float ComputeTopY()
+        {
+            var renderers = GetComponentsInChildren<Renderer>();
+            if (renderers.Length == 0) return 1f;
+
+            var bounds = renderers[0].bounds;
+            foreach (var r in renderers)
+                bounds.Encapsulate(r.bounds);
+
+            return bounds.max.y - transform.position.y;
+        }
     }
 }

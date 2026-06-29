@@ -1,23 +1,29 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
-public class RoomNameUI : MonoBehaviour
+namespace Edgar.UI
 {
-    [SerializeField] private CameraNavigationSystem navSystem;
-    [SerializeField] private TMP_Text label;
-
-    void Start()
+    public class RoomNameUI : MonoBehaviour
     {
-        navSystem.OnCameraChanged += OnCameraChanged;
-    }
+        [SerializeField] private CameraNavigationSystem _navigationSystem;
+        [SerializeField] private TMP_Text _roomNameText;
 
-    void OnDestroy()
-    {
-        navSystem.OnCameraChanged -= OnCameraChanged;
-    }
+        private void Start()
+        {
+            if (_navigationSystem != null)
+            {
+                _navigationSystem.OnCameraChanged += _ => UpdateRoomName();
+            }
 
-    private void OnCameraChanged(CameraPointMarker marker)
-    {
-        label.text = marker.data.pointName;
+            UpdateRoomName();
+        }
+
+        private void UpdateRoomName()
+        {
+            if (_roomNameText != null && _navigationSystem != null)
+            {
+                _roomNameText.text = _navigationSystem.GetCurrentPointName();
+            }
+        }
     }
 }

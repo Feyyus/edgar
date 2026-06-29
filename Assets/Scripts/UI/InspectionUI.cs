@@ -1,50 +1,52 @@
 using UnityEngine;
 using TMPro;
+using Edgar.Dossier.Core;
+using Edgar.Items.Core;
 
-/// <summary>
-/// Manages the UI panel shown during item inspection.
-/// Wire up via InspectionManager's inspector field.
-/// </summary>
-public class InspectionUI : MonoBehaviour
+namespace Edgar.UI
 {
-    [SerializeField] private CanvasGroup canvasGroup;
-    [SerializeField] private TextMeshProUGUI titleText;
-    [SerializeField] private TextMeshProUGUI descriptionText;
-
-    [Tooltip("Close button shown on mobile. Wire its OnClick to OnCloseButtonClicked.")]
-    [SerializeField] private GameObject closeButton;
-
-    void Awake()
-    {
-        Hide();
-    }
-
-    public void Show(ItemData data)
-    {
-        if (titleText != null) titleText.text = data.displayName;
-        if (descriptionText != null) descriptionText.text = data.description;
-
-        canvasGroup.alpha = 1f;
-        canvasGroup.blocksRaycasts = true;
-
-        if (closeButton != null)
-            closeButton.SetActive(true);
-    }
-
-    public void Hide()
-    {
-        canvasGroup.alpha = 0f;
-        canvasGroup.blocksRaycasts = false;
-
-        if (closeButton != null)
-            closeButton.SetActive(false);
-    }
-
     /// <summary>
-    /// Called by the close button's OnClick event in the Inspector.
+    /// Manages the UI panel shown during item inspection.
+    /// Wire up via InspectionManager's inspector field.
     /// </summary>
-    public void OnCloseButtonClicked()
+    public class InspectionUI : MonoBehaviour
     {
-        InspectionManager.Instance.CloseInspection();
+        [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private TextMeshProUGUI _titleText;
+        [SerializeField] private TextMeshProUGUI _descriptionText;
+
+        [Tooltip("Close button shown on mobile. Wire its OnClick to OnCloseButtonClicked.")]
+        [SerializeField] private GameObject _closeButton;
+
+        private void Awake()
+        {
+            Hide();
+        }
+
+        public void Show(ClueData data)
+        {
+            if (_titleText != null) _titleText.text = data.title;
+            if (_descriptionText != null) _descriptionText.text = data.description;
+
+            _canvasGroup.alpha = 1f;
+            _canvasGroup.blocksRaycasts = true;
+
+            if (_closeButton != null)
+                _closeButton.SetActive(true);
+        }
+
+        public void Hide()
+        {
+            _canvasGroup.alpha = 0f;
+            _canvasGroup.blocksRaycasts = false;
+
+            if (_closeButton != null)
+                _closeButton.SetActive(false);
+        }
+
+        public void OnCloseButtonClicked()
+        {
+            InspectionManager.Instance.CloseInspection();
+        }
     }
 }

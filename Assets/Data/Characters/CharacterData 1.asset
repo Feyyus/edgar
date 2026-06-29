@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterId: pikardia
   displayName: Pika
-  sprite: {fileID: 21300000, guid: 0cbbe5f9adb5f4269b9cd3c981b99085, type: 3}
+  sprite: {fileID: 21300000, guid: f2001187d61cc6048b73ef3ca810210e, type: 3}
   isInteractive: 1
